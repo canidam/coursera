@@ -5,12 +5,19 @@ import java.util.Scanner;
  */
 public class CaesarCipher {
 
-    String alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private String alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private String shiftedAlpha = "";
+    private int key;
+
+    public CaesarCipher(int key) {
+        this.key = key;
+        shiftedAlpha = alphabetUpper.substring(key) + alphabetUpper.substring(0, key);
+
+    }
 
 
-    public String encrypt(String input, int key)
+    public String encrypt(String input)
     {
-        String encrypted = alphabetUpper.substring(key) + alphabetUpper.substring(0, key);
         StringBuilder encryptedMessage = new StringBuilder();
 
         for (int i=0; i < input.length(); i++)
@@ -28,9 +35,9 @@ public class CaesarCipher {
             else
             {
                 if (isUpper)
-                    encryptedMessage.append(encrypted.charAt(idx));
+                    encryptedMessage.append(shiftedAlpha.charAt(idx));
                 else
-                    encryptedMessage.append(Character.toLowerCase(encrypted.charAt(idx)));
+                    encryptedMessage.append(Character.toLowerCase(shiftedAlpha.charAt(idx)));
             }
         }
 
@@ -71,12 +78,22 @@ public class CaesarCipher {
         return encryptedMessage.toString();
     }
 
+    public String decrypt(String msg) {
+        String res = "";
+
+        CaesarCipher breaker = new CaesarCipher(26 - key);
+        res = breaker.encrypt(msg);
+
+        return res;
+    }
+
 
     public static void main(String[] args) {
 
-        CaesarCipher caesar = new CaesarCipher();
-        String encrypted = caesar.encryptTwoKeys("At noon be in the conference room with your hat on for a surprise party. YELL LOUD!", 8, 21);
-        System.out.println(encrypted);
+        CaesarCipher cc = new CaesarCipher(5);
+        System.out.println("encrypt msg: " + cc.encryptTwoKeys("Chen is awesome", 4, 5));
+        System.out.println("decrypted msg: " + cc.decrypt("Hmjs nx fbjxtrj"));
+
 
     }
 }
