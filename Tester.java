@@ -8,7 +8,6 @@ public class Tester {
 
         CodonCount cd = new CodonCount();
         cd.buildCodonMap(0, "CGTTCAAGTTCAA");
-        cd.printOut();
-
+        cd.printCodonCounts(0, 10);
     }
 }

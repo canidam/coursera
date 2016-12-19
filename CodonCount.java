@@ -12,13 +12,17 @@ public class CodonCount {
     }
 
     public void buildCodonMap(int start, String dna) {
-        String codon = dna.substring(start, start + 3);
-        if (mapDna.containsKey(codon)) {
-            int k = mapDna.get(codon);
-            mapDna.put(codon, k+1);
-        }
-        else {
-            mapDna.put(codon, 1);
+        int times = (dna.length() - start) / 3;
+        for (int i=0; i < times; i++) {
+            String codon = dna.substring(start, start + 3);
+            if (mapDna.containsKey(codon)) {
+                int k = mapDna.get(codon);
+                mapDna.put(codon, k+1);
+            }
+            else {
+                mapDna.put(codon, 1);
+            }
+            start += 3;
         }
     }
 
@@ -41,9 +45,5 @@ public class CodonCount {
             if (count > start && count < end)
                 System.out.println(s +"\t"+ count);
         }
-    }
-
-    public void tester(String dna) {
-        for (int i=0; i < dna.length(); i++)
     }
 }
